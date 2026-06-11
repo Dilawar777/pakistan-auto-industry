@@ -26,13 +26,17 @@ st.markdown("""
     .kpi-val    { font-size:1.8rem; font-weight:700; color:#1A56A0; }
     .kpi-lbl    { font-size:0.82rem; color:#6B7280; }
     .insight-blue  { background:#EBF4FF; border-left:4px solid #1A56A0;
-                     padding:12px 16px; border-radius:8px; margin:6px 0; }
+                     padding:12px 16px; border-radius:8px; margin:6px 0;
+                     word-wrap:break-word; white-space:normal; width:100%; }
     .insight-red   { background:#FEE2E2; border-left:4px solid #DC2626;
-                     padding:12px 16px; border-radius:8px; margin:6px 0; }
+                     padding:12px 16px; border-radius:8px; margin:6px 0;
+                     word-wrap:break-word; white-space:normal; width:100%; }
     .insight-green { background:#D1FAE5; border-left:4px solid #059669;
-                     padding:12px 16px; border-radius:8px; margin:6px 0; }
+                     padding:12px 16px; border-radius:8px; margin:6px 0;
+                     word-wrap:break-word; white-space:normal; width:100%; }
     .insight-amber { background:#FFF8E7; border-left:4px solid #F39C12;
-                     padding:12px 16px; border-radius:8px; margin:6px 0; }
+                     padding:12px 16px; border-radius:8px; margin:6px 0;
+                     word-wrap:break-word; white-space:normal; width:100%; }
     .section    { font-size:1.1rem; font-weight:600; color:#1A1A2E;
                   border-bottom:2px solid #1A56A0;
                   padding-bottom:4px; margin:20px 0 12px; }
