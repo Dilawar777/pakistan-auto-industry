@@ -53,15 +53,15 @@ def load_data():
     except Exception as e:
         st.error(f"Could not load dataset: {e}")
         st.stop()
-    df["Column1"] = df["Column1"].str.strip().str.replace("Prod$", "Prod.", regex=True)
+   
     df["Date"]    = pd.to_datetime(df["Month"].astype(str) + " " + df["Year"].astype(str),
                                    format="%b %Y", errors="coerce")
     df = df.dropna(subset=["Date"]).sort_values("Date")
     return df
 
 df    = load_data()
-sales = df[df["Column1"] == "Sale."]
-prod  = df[df["Column1"] == "Prod."]
+sales = df[df["Column1"] == "Sale"]
+prod  = df[df["Column1"].isin(["Prod.", "Prod"])]
 
 yearly     = sales.groupby("Year")["Units"].sum()
 cat_totals = sales.groupby("Category.1")["Units"].sum().sort_values(ascending=False)
