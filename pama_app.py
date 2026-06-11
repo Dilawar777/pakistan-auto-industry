@@ -247,7 +247,7 @@ with tab3:
     st.markdown('<p class="section">Top 10 Best Selling Models</p>', unsafe_allow_html=True)
     top10 = sales.groupby("Vehicles")["Units"].sum().sort_values(ascending=False).head(10)
     fig, ax = plt.subplots(figsize=(12, 5))
-   top10_sorted = top10.sort_values()
+    top10_sorted = top10.sort_values()
     ax.barh(range(len(top10_sorted)), top10_sorted.values, color=BLUE, alpha=0.85)
     ax.set_yticks(range(len(top10_sorted)))
     ax.set_yticklabels(top10_sorted.index)
