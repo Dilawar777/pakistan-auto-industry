@@ -81,12 +81,12 @@ sales_copy["Month_Name"] = pd.Categorical(sales_copy["Month"], categories=month_
 seasonal     = sales_copy.groupby("Month_Name")["Units"].mean()
 yoy          = yearly.pct_change() * 100
 
-# ── Header ──────────────────────────────────────────────────
+
 st.markdown('<p class="main-title">🚗 Pakistan Automotive Industry Dashboard</p>', unsafe_allow_html=True)
 st.markdown('<p class="sub-title">PAMA Dataset · 2007–2024 · 17,723 Records · Source: opendata.com.pk</p>', unsafe_allow_html=True)
 st.markdown("")
 
-# ── Sidebar ─────────────────────────────────────────────────
+
 st.sidebar.markdown("### 🔧 Filters")
 year_range = st.sidebar.slider("Year Range",
                                 int(df["Year"].min()), int(df["Year"].max()),
@@ -101,7 +101,7 @@ sales_f = sales[(sales["Year"] >= year_range[0]) &
                 (sales["Year"] <= year_range[1]) &
                 (sales["Category.1"].isin(selected_cats))]
 
-# ── KPIs ────────────────────────────────────────────────────
+
 k1, k2, k3, k4, k5 = st.columns(5)
 with k1:
     st.markdown(f'<div class="kpi-card"><div class="kpi-val">{sales["Units"].sum()/1e6:.1f}M</div><div class="kpi-lbl">Total Units Sold</div></div>', unsafe_allow_html=True)
@@ -118,9 +118,7 @@ st.markdown(""); st.divider()
 
 tab1, tab2, tab3, tab4 = st.tabs(["📈 Trends", "🏍️ Categories", "🚗 Brands", "💡 Insights"])
 
-# ════════════════════════════════════════════════════════════
-# TAB 1 — TRENDS
-# ════════════════════════════════════════════════════════════
+
 with tab1:
     yearly_f = sales_f.groupby("Year")["Units"].sum()
     yoy_f    = yearly_f.pct_change() * 100
@@ -188,9 +186,7 @@ with tab1:
         for s in ["top","right"]: ax.spines[s].set_visible(False)
         plt.tight_layout(); st.pyplot(fig); plt.close()
 
-# ════════════════════════════════════════════════════════════
-# TAB 2 — CATEGORIES
-# ════════════════════════════════════════════════════════════
+
 with tab2:
     c1, c2 = st.columns(2)
     colors_pie = [BLUE,RED,GREEN,AMBER,"#8E44AD","#16A085","#E67E22","#2ECC71","#9B59B6","#1ABC9C"]
@@ -221,7 +217,7 @@ with tab2:
         for s in ["top","right"]: axes[1].spines[s].set_visible(False)
         plt.tight_layout(); st.pyplot(fig); plt.close()
 
-    # Cycle imported insight
+  
     st.markdown('<p class="section">Cycle — Fully Imported</p>', unsafe_allow_html=True)
     cycle_sales = sales[sales["Category.1"] == "CYCLE"].groupby("Year")["Units"].sum()
     fig, ax = plt.subplots(figsize=(12, 4))
@@ -232,9 +228,7 @@ with tab2:
     for s in ["top","right"]: ax.spines[s].set_visible(False)
     plt.tight_layout(); st.pyplot(fig); plt.close()
 
-# ════════════════════════════════════════════════════════════
-# TAB 3 — BRANDS
-# ════════════════════════════════════════════════════════════
+
 with tab3:
     st.markdown('<p class="section">Car Brand Competition</p>', unsafe_allow_html=True)
     fig, ax = plt.subplots(figsize=(12, 5))
@@ -253,16 +247,17 @@ with tab3:
     st.markdown('<p class="section">Top 10 Best Selling Models</p>', unsafe_allow_html=True)
     top10 = sales.groupby("Vehicles")["Units"].sum().sort_values(ascending=False).head(10)
     fig, ax = plt.subplots(figsize=(12, 5))
-    top10.sort_values().plot(kind="barh", ax=ax, color=BLUE, alpha=0.85)
+   top10_sorted = top10.sort_values()
+    ax.barh(range(len(top10_sorted)), top10_sorted.values, color=BLUE, alpha=0.85)
+    ax.set_yticks(range(len(top10_sorted)))
+    ax.set_yticklabels(top10_sorted.index)
     ax.set_title("Top 10 Vehicle Models — Total Sales (2007–2024)", fontweight="bold")
     ax.set_xlabel("Total Units")
     ax.xaxis.set_major_formatter(mticker.FuncFormatter(lambda x,_: f"{x/1e6:.1f}M"))
     for s in ["top","right"]: ax.spines[s].set_visible(False)
     plt.tight_layout(); st.pyplot(fig); plt.close()
 
-# ════════════════════════════════════════════════════════════
-# TAB 4 — INSIGHTS
-# ════════════════════════════════════════════════════════════
+
 with tab4:
     st.markdown('<p class="section">Market Insights</p>', unsafe_allow_html=True)
 
